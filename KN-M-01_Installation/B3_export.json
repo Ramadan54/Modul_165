@@ -1,0 +1,11 @@
+[{
+  "_id": {
+    "$oid": "6a0c5744c9507bd0775fb556"
+  },
+  "name": "Ramadan Asani",
+  "adresse": "Musterstrasse 1, 8000 Zürich",
+  "groesse": 178,
+  "geburtsdatum": {
+    "$date": "2003-05-15T00:00:00.000Z"
+  }
+}]
