@@ -1,0 +1,40 @@
+#cloud-config
+ssh_pwauth: false
+disable_root: false
+package_update: true
+packages:
+  - unzip
+  - gnupg
+  - curl
+
+write_files:
+  - path: /home/ubuntu/mongodconfupdate.sh
+    content: |
+      sudo sed -i 's/#security:/security:\n  authorization: enabled/g' /etc/mongod.conf
+  - path: /home/ubuntu/mongodbuser.txt
+    content: |
+      use admin;
+      db.createUser(
+        {
+          user: "admin",
+          pwd: "M165_TBZ_2026!",
+          roles: [
+            { role: "userAdminAnyDatabase", db: "admin" },
+            { role: "readWriteAnyDatabase", db: "admin" }
+          ]
+        }
+      );
+
+runcmd:
+  - curl -fsSL https://pgp.mongodb.com/server-8.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
+  - echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+  - sudo apt-get update -y
+  - sudo apt-get install -y mongodb-org
+  - sudo sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+  - sudo chmod +x /home/ubuntu/mongodconfupdate.sh
+  - sudo /home/ubuntu/mongodconfupdate.sh
+  - sudo systemctl enable mongod
+  - sudo systemctl start mongod
+  - sleep 5
+  - sudo mongosh < /home/ubuntu/mongodbuser.txt
+  - sudo systemctl restart mongod
