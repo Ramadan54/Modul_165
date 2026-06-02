@@ -1,0 +1,17 @@
+{
+  "_id": { "$oid": "664f1a2b3c4d5e6f7a8b9c0d" },
+  "vorname": "Hans",
+  "nachname": "Mueller",
+  "telefon": "0791234567",
+  "kundenSeit": { "$date": "2021-03-15T00:00:00Z" },
+  "autos": [
+    {
+      "_id": { "$oid": "664f1a2b3c4d5e6f7a8b9c0e" },
+      "kennzeichen": "ZH 123456",
+      "marke": "Volkswagen",
+      "modell": "Golf R",
+      "baujahr": 2020,
+      "leistungPS": 320
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://tbz.ch/kunde.json",
+  "title": "Kunde",
+  "type": "object",
+  "required": ["vorname", "nachname", "telefon", "kundenSeit", "autos"],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Eindeutige ObjectId des Kunden."
+    },
+    "vorname": {
+      "type": "string",
+      "description": "Vorname des Kunden."
+    },
+    "nachname": {
+      "type": "string",
+      "description": "Nachname des Kunden."
+    },
+    "telefon": {
+      "type": "string",
+      "description": "Telefonnummer des Kunden."
+    },
+    "kundenSeit": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Datum der Kundenregistrierung (ISO 8601)."
+    },
+    "autos": {
+      "type": "array",
+      "description": "Eingebettete Fahrzeugliste des Kunden.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["kennzeichen", "marke", "modell", "baujahr", "leistungPS"],
+        "properties": {
+          "_id": { "type": "string" },
+          "kennzeichen": { "type": "string" },
+          "marke": { "type": "string" },
+          "modell": { "type": "string" },
+          "baujahr": { "type": "integer", "minimum": 1900, "maximum": 2100 },
+          "leistungPS": { "type": "integer", "minimum": 1 }
+        }
+      }
+    }
+  }
+}

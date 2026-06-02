@@ -1,0 +1,8 @@
+{
+  "_id": { "$oid": "664f1a2b3c4d5e6f7a8b9c02" },
+  "vorname": "Thomas",
+  "nachname": "Meyer",
+  "spezialisierung": "Fahrwerktechnik",
+  "eintrittsdatum": { "$date": "2019-06-01T00:00:00Z" },
+  "stundenansatz": 95.0
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://tbz.ch/tuningauftrag.json",
+  "title": "Tuningauftrag",
+  "type": "object",
+  "required": [
+    "bezeichnung",
+    "autoId",
+    "tuningteilIds",
+    "mechanikerIds",
+    "auftragsdatum",
+    "status",
+    "gesamtpreis"
+  ],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Eindeutige ObjectId des Auftrags."
+    },
+    "bezeichnung": {
+      "type": "string",
+      "description": "Bezeichnung des Auftrags."
+    },
+    "autoId": {
+      "type": "string",
+      "description": "Referenz auf das betroffene Fahrzeug (ObjectId als String)."
+    },
+    "tuningteilIds": {
+      "type": "array",
+      "description": "Referenzen auf verwendete Tuningteile.",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "mechanikerIds": {
+      "type": "array",
+      "description": "Referenzen auf zuständige Mechaniker.",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "auftragsdatum": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Datum der Auftragserteilung (ISO 8601)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["A", "F", "S"],
+      "description": "Status: A=Aktiv, F=Fertig, S=Storniert."
+    },
+    "gesamtpreis": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Gesamtpreis des Auftrags in CHF."
+    }
+  }
+}

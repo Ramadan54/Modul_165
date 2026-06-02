@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://tbz.ch/mechaniker.json",
+  "title": "Mechaniker",
+  "type": "object",
+  "required": [
+    "vorname",
+    "nachname",
+    "spezialisierung",
+    "eintrittsdatum",
+    "stundenansatz"
+  ],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Eindeutige ObjectId des Mechanikers."
+    },
+    "vorname": {
+      "type": "string",
+      "description": "Vorname des Mechanikers."
+    },
+    "nachname": {
+      "type": "string",
+      "description": "Nachname des Mechanikers."
+    },
+    "spezialisierung": {
+      "type": "string",
+      "description": "Fachbereich des Mechanikers."
+    },
+    "eintrittsdatum": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Eintrittsdatum in die Werkstatt (ISO 8601)."
+    },
+    "stundenansatz": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Stundenlohn in CHF."
+    }
+  }
+}

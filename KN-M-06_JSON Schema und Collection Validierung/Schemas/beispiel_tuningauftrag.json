@@ -1,0 +1,10 @@
+{
+  "_id": { "$oid": "664f1a2b3c4d5e6f7a8b9c03" },
+  "bezeichnung": "Tieferlegung mit Gewindefahrwerk",
+  "autoId": { "$oid": "664f1a2b3c4d5e6f7a8b9c0e" },
+  "tuningteilIds": [{ "$oid": "664f1a2b3c4d5e6f7a8b9c01" }],
+  "mechanikerIds": [{ "$oid": "664f1a2b3c4d5e6f7a8b9c02" }],
+  "auftragsdatum": { "$date": "2024-02-10T00:00:00Z" },
+  "status": "A",
+  "gesamtpreis": 2100.0
+}

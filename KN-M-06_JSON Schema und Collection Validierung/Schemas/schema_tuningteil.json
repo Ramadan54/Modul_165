@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$id": "https://tbz.ch/tuningteil.json",
+  "title": "Tuningteil",
+  "type": "object",
+  "required": [
+    "bezeichnung",
+    "kategorie",
+    "hersteller",
+    "preis",
+    "lagerbestand"
+  ],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Eindeutige ObjectId des Tuningteils."
+    },
+    "bezeichnung": {
+      "type": "string",
+      "description": "Produktbezeichnung des Teils."
+    },
+    "kategorie": {
+      "type": "string",
+      "enum": [
+        "Fahrwerk",
+        "Auspuff",
+        "Felgen",
+        "Chiptuning",
+        "Folierung",
+        "Bremsen",
+        "Motor"
+      ],
+      "description": "Kategorie des Tuningteils."
+    },
+    "hersteller": {
+      "type": "string",
+      "description": "Hersteller des Teils."
+    },
+    "preis": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Verkaufspreis in CHF."
+    },
+    "lagerbestand": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Anzahl Teile im Lager."
+    }
+  }
+}
