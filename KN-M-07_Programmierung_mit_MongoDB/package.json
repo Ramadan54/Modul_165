@@ -1,0 +1,14 @@
+{
+  "name": "kn-m-07",
+  "version": "1.0.0",
+  "description": "M165 KN-M-07 - Zugriff auf MongoDB mit dem Node.js-Treiber",
+  "main": "KN-M-07_app.js",
+  "scripts": {
+    "start": "node KN-M-07_app.js"
+  },
+  "author": "Ramadan Asani",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^7.2.0"
+  }
+}
