@@ -1,0 +1,73 @@
+// =====================================================================
+// KN-N-02 Teil A: Daten hinzufügen
+// Thema: Tuning-Werkstatt
+// Autor: Ramadan Asani
+// Modul: M165 - NoSQL-Datenbanken einsetzen
+//
+// Hinweis: Falls bereits Daten vorhanden sind, zuerst ausfuehren:
+//   MATCH (n) DETACH DELETE n;
+// Danach das untenstehende CREATE-Statement in einem Stueck ausfuehren.
+// =====================================================================
+
+CREATE
+  // === Kunden ===
+  (marko:Kunde  {vorname: 'Marko',  nachname: 'Petrovic', telefon: '079 234 56 78', kundenSeit: 2019}),
+  (sandra:Kunde {vorname: 'Sandra', nachname: 'Keller',   telefon: '078 555 12 34', kundenSeit: 2021}),
+  (luca:Kunde   {vorname: 'Luca',   nachname: 'Bianchi',  telefon: '076 888 99 00', kundenSeit: 2020}),
+  (aisha:Kunde  {vorname: 'Aisha',  nachname: 'Demir',    telefon: '079 111 22 33', kundenSeit: 2023}),
+
+  // === Autos ===
+  (golf:Auto {kennzeichen: 'ZH 123456', marke: 'VW',       modell: 'Golf GTI', baujahr: 2018, leistungPS: 245}),
+  (polo:Auto {kennzeichen: 'SG 345678', marke: 'VW',       modell: 'Polo GTI', baujahr: 2017, leistungPS: 200}),
+  (m135:Auto {kennzeichen: 'ZH 654321', marke: 'BMW',      modell: 'M135i',    baujahr: 2020, leistungPS: 306}),
+  (s3:Auto   {kennzeichen: 'AG 789012', marke: 'Audi',     modell: 'S3',       baujahr: 2019, leistungPS: 310}),
+  (a45:Auto  {kennzeichen: 'ZH 456789', marke: 'Mercedes', modell: 'A45 AMG',  baujahr: 2021, leistungPS: 421}),
+
+  // === Tuningteile ===
+  (auspuff:Tuningteil    {bezeichnung: 'Sportauspuffanlage',          kategorie: 'Abgasanlage', hersteller: 'Akrapovic', preis: 2500.00, lagerbestand: 5}),
+  (fahrwerk:Tuningteil   {bezeichnung: 'Gewindefahrwerk',             kategorie: 'Fahrwerk',    hersteller: 'KW',        preis: 1800.00, lagerbestand: 3}),
+  (stage2:Tuningteil     {bezeichnung: 'Leistungssteigerung Stage 2', kategorie: 'Software',    hersteller: 'ABT',       preis: 1200.00, lagerbestand: 10}),
+  (bremsen:Tuningteil    {bezeichnung: 'Big Brake Kit',               kategorie: 'Bremsen',     hersteller: 'Brembo',    preis: 3200.00, lagerbestand: 2}),
+  (luftfilter:Tuningteil {bezeichnung: 'Sportluftfilter',             kategorie: 'Ansaugung',   hersteller: 'BMC',       preis: 350.00,  lagerbestand: 20}),
+
+  // === Mechaniker ===
+  (thomas:Mechaniker {vorname: 'Thomas', nachname: 'Frei',   spezialisierung: 'Motorenbau',          eintrittsdatum: 2015, stundenansatz: 95}),
+  (elena:Mechaniker  {vorname: 'Elena',  nachname: 'Rossi',  spezialisierung: 'Fahrwerkstechnik',    eintrittsdatum: 2018, stundenansatz: 90}),
+  (david:Mechaniker  {vorname: 'David',  nachname: 'Huber',  spezialisierung: 'Elektronik/Software', eintrittsdatum: 2020, stundenansatz: 100}),
+  (nadia:Mechaniker  {vorname: 'Nadia',  nachname: 'Schmid', spezialisierung: 'Bremsen/Sicherheit',  eintrittsdatum: 2019, stundenansatz: 92}),
+
+  // === Tuningaufträge ===
+  (auftrag1:Tuningauftrag {bezeichnung: 'Golf GTI Performance Paket',   auftragsdatum: date('2024-03-15'), status: 'abgeschlossen',  gesamtpreis: 5900.00}),
+  (auftrag2:Tuningauftrag {bezeichnung: 'BMW M135i Fahrwerk & Optik',   auftragsdatum: date('2024-05-20'), status: 'in Bearbeitung', gesamtpreis: 4500.00}),
+  (auftrag3:Tuningauftrag {bezeichnung: 'Audi S3 Stage 2 Tuning',       auftragsdatum: date('2024-06-01'), status: 'in Bearbeitung', gesamtpreis: 2400.00}),
+  (auftrag4:Tuningauftrag {bezeichnung: 'Mercedes A45 Bremsen-Upgrade', auftragsdatum: date('2024-02-10'), status: 'abgeschlossen',  gesamtpreis: 4100.00}),
+
+  // === Kanten: BESITZT (Kunde -> Auto) ===
+  (marko)-[:BESITZT]->(golf),
+  (marko)-[:BESITZT]->(polo),
+  (sandra)-[:BESITZT]->(m135),
+  (luca)-[:BESITZT]->(s3),
+  (aisha)-[:BESITZT]->(a45),
+
+  // === Kanten: FUER_AUTO (Tuningauftrag -> Auto) ===
+  (auftrag1)-[:FUER_AUTO]->(golf),
+  (auftrag2)-[:FUER_AUTO]->(m135),
+  (auftrag3)-[:FUER_AUTO]->(s3),
+  (auftrag4)-[:FUER_AUTO]->(a45),
+
+  // === Kanten: ENTHAELT (Tuningauftrag -> Tuningteil) mit {menge, einzelpreis} ===
+  (auftrag1)-[:ENTHAELT {menge: 1, einzelpreis: 2500.00}]->(auspuff),
+  (auftrag1)-[:ENTHAELT {menge: 1, einzelpreis: 1200.00}]->(stage2),
+  (auftrag1)-[:ENTHAELT {menge: 1, einzelpreis: 350.00}]->(luftfilter),
+  (auftrag2)-[:ENTHAELT {menge: 1, einzelpreis: 1800.00}]->(fahrwerk),
+  (auftrag3)-[:ENTHAELT {menge: 1, einzelpreis: 1200.00}]->(stage2),
+  (auftrag3)-[:ENTHAELT {menge: 1, einzelpreis: 350.00}]->(luftfilter),
+  (auftrag4)-[:ENTHAELT {menge: 1, einzelpreis: 3200.00}]->(bremsen),
+
+  // === Kanten: ARBEITET_AN (Mechaniker -> Tuningauftrag) mit {stundenAufgewendet, rolle} ===
+  (thomas)-[:ARBEITET_AN {stundenAufgewendet: 12, rolle: 'Hauptverantwortlicher'}]->(auftrag1),
+  (david)-[:ARBEITET_AN  {stundenAufgewendet: 4,  rolle: 'Assistenz'}]->(auftrag1),
+  (elena)-[:ARBEITET_AN  {stundenAufgewendet: 8,  rolle: 'Hauptverantwortlicher'}]->(auftrag2),
+  (david)-[:ARBEITET_AN  {stundenAufgewendet: 6,  rolle: 'Hauptverantwortlicher'}]->(auftrag3),
+  (nadia)-[:ARBEITET_AN  {stundenAufgewendet: 10, rolle: 'Hauptverantwortlicher'}]->(auftrag4),
+  (thomas)-[:ARBEITET_AN {stundenAufgewendet: 3,  rolle: 'Assistenz'}]->(auftrag4);
